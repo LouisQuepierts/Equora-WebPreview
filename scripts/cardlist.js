@@ -35,7 +35,7 @@ function task(item) {
     const content       = document.createElement("div");
     content.className   = "task-content";
 
-    const title         = document.createElement("div");
+    const title         = document.createElement("span");
     title.className     = "task-title";
     title.textContent   = item.time ? item.time : "Anytime";
     content             .appendChild(title);

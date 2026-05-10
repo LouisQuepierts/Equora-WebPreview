@@ -21,16 +21,30 @@
 
 <footer class="footer" id="footer">
 
-    <div class="plus-area" id="toggleBtn">
-      +
-    </div>
+  <!-- collapsed 按钮层 -->
+  <div class="plus-area" id="plusArea">
+    +
+  </div>
+
+  <!-- expanded 内容层 -->
+  <div class="footer-expanded">
 
     <div class="drag-bar"></div>
 
-    <div class="footer-panel">
-        <h3>操作面板</h3>
-        <p>这里是展开内容</p>
+    <div class="footer-header">
+      Create Task
     </div>
+
+    <div class="input-row">
+      <button class="mic-btn">
+        <img src="../assets/microphone.svg" />
+      </button>
+      <input class="task-input" placeholder="Enter task..."/>
+      <button class="submit-btn">↑</button>
+    </div>
+
+  </div>
+
 </footer>
 
 </div>
@@ -38,18 +52,16 @@
 
 <script type="module" src="../scripts/cardlist.js"></script>
 <script>
-  const footer = document.getElementById('footer');
-  const toggleBtn = document.getElementById('toggleBtn');
-
-  toggleBtn.addEventListener('click', () => {
-    footer.classList.add('open');
+  document.getElementById('plusArea')
+  .addEventListener('click', () => {
+    document.getElementById('footer')
+      .classList.add('open');
   });
 
-  // 点击 drag bar 收起
-  const dragBar = document.querySelector('.drag-bar');
-
-  dragBar.addEventListener('click', () => {
-    footer.classList.remove('open');
+  document.querySelector('.drag-bar')
+  .addEventListener('click', () => {
+    document.getElementById('footer')
+      .classList.remove('open');
   });
 </script>
 

@@ -46,57 +46,82 @@
   bottom: 0;
 
   width: 100%;
-
   height: 70px;
-  background: var(--button-color-enable);
-  
-  transition:
-    width 0.3s ease,
-    height 0.3s ease,
-    background 0.3s ease;
+  background: #b9dcff;
 
   overflow: hidden;
 
+  transition: all 0.3s ease;
+
   z-index: 100;
-  box-shadow: 0 -2px 10px rgba(0,0,0,0.15);
 }
 
 /* 展开后 */
 .footer.open {
-  width: 100%;
-  height: 360px;
-
-  left: 0;
-  bottom: 0;
-
-  transform: none;
-
+  height: 160px;
   background: white;
 }
 
-.plus-area {
+.footer::before {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
   width: 100%;
-  height: 100%;
+  height: 1px;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 40px;
-  color: white;
-
-  cursor: pointer;
-
-  transition: opacity 0.2s ease;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(0,0,0,0.12),
+    transparent
+  );
 }
 
-/* 展开后隐藏 */
+.plus-area {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 70px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 36px;
+  color: white;
+
+  z-index: 10;
+}
+
 .footer.open .plus-area {
   opacity: 0;
   pointer-events: none;
+  transform: scale(0.8);
 }
 
-/* 拖拽条 */
+.footer-expanded {
+  position: relative;
+
+  padding-top: 24px;
+
+  opacity: 0;
+  transform: translateY(10px);
+
+  transition: all 0.25s ease;
+}
+
+.footer.open .footer-expanded {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
 .drag-bar {
   position: absolute;
 
@@ -115,22 +140,87 @@
   opacity: 0;
 
   transition: opacity 0.3s ease;
+
+  margin-bottom: 12px;
 }
 
-/* 展开后显示 */
 .footer.open .drag-bar {
   opacity: 1;
 }
 
-/* 内容 */
-.footer-content {
-  padding: 40px 24px 24px;
-
-  opacity: 0;
-
-  transition: opacity 0.25s ease;
-}
-
 .footer.open .footer-content {
   opacity: 1;
+}
+
+.footer-header {
+  font-size: 24px;
+  font-weight: 700;
+  color: #222;
+
+  padding: 8px 20px;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 12px 16px;
+}
+
+.mic-btn {
+  width: 36px;
+  height: 36px;
+
+  border: none;
+  background: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2px;
+
+  flex-shrink: 0;
+}
+
+.task-input {
+  flex: 1;
+
+  height: 40px;
+
+  border: none;
+  outline: none;
+
+  border-radius: 999px;
+  
+
+  background: #eee;
+
+  padding: 0 16px;
+
+  font-size: 15px;
+}
+
+.submit-btn {
+  width: 40px;
+  height: 40px;
+
+  border-radius: 50%;
+
+  border: none;
+
+  background: grey;
+  color: white;
+
+  font-size: 24px;
+  font-weight: bold;
+  font-family: consolas, monospace;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
 }
