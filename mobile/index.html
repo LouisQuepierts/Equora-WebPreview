@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equora - Task Manager</title>
+    <link rel="stylesheet" href="mobile.css"/>
+    <link rel="stylesheet" href="card.css"/>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div class="app">
+
+<header class="header">
+    <h1>Equora</h1>
+</header>
+
+<main class="content">
+    <div class="list" id="list"></div>
+</main>
+
+<footer class="footer" id="footer">
+
+    <div class="plus-area" id="toggleBtn">
+      +
+    </div>
+
+    <div class="drag-bar"></div>
+
+    <div class="footer-panel">
+        <h3>操作面板</h3>
+        <p>这里是展开内容</p>
+    </div>
+</footer>
+
+</div>
+</body>
+
+<script type="module" src="../scripts/cardlist.js"></script>
+<script>
+  const footer = document.getElementById('footer');
+  const toggleBtn = document.getElementById('toggleBtn');
+
+  toggleBtn.addEventListener('click', () => {
+    footer.classList.add('open');
+  });
+
+  // 点击 drag bar 收起
+  const dragBar = document.querySelector('.drag-bar');
+
+  dragBar.addEventListener('click', () => {
+    footer.classList.remove('open');
+  });
+</script>
+
+</html>
