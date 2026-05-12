@@ -32,6 +32,16 @@ function task(item) {
     const div           = document.createElement("div");
     div.className       = "task-item";
 
+    div.addEventListener("click", () => {
+        // goto /detail.html with query params.
+        console.log(window.location.pathname);
+        const path = window.location.pathname;
+        // suppose path = /Equora/mobile/index.html
+        // then jump to /Equora/mobile/detail.html
+        const url = path.substring(0, path.lastIndexOf('/')) + "/detail.html?task=" + item.id;
+        window.location.href = url;
+    });
+
     const content       = document.createElement("div");
     content.className   = "task-content";
 

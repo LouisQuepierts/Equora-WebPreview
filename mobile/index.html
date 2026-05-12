@@ -6,13 +6,17 @@
     <title>Equora - Task Manager</title>
     <link rel="stylesheet" href="mobile.css"/>
     <link rel="stylesheet" href="card.css"/>
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="index.css"/>
 </head>
 <body>
 <div class="app">
 
 <header class="header">
+    <button class="header-btn">☰</button>
+
     <h1>Equora</h1>
+
+    <div class="header-spacer"></div>
 </header>
 
 <main class="content">
@@ -37,9 +41,9 @@
 
     <div class="input-row">
       <button class="mic-btn">
-        <img src="../assets/microphone.svg" />
+        <img src="../assets/microphone.svg"  alt=""/>
       </button>
-      <input class="task-input" placeholder="Enter task..."/>
+      <textarea class="task-input" placeholder="Enter task..." rows="1"></textarea>
       <button class="submit-btn">↑</button>
     </div>
 
