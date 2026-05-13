@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equora - Task Manager</title>
+    <link rel="stylesheet" href="style/mobile.css"/>
+    <link rel="stylesheet" href="style/create.css"/>
+</head>
+<body>
+
+<div class="app" id="app">
+
+    <header class="header">
+        <button class="header-btn" id="btn-return"><</button>
+
+        <h1>Confirm Tasks</h1>
+
+        <div class="header-spacer"></div>
+    </header>
+
+    <div class="create-content">
+        <div class="create-card input-section">
+            <label class="title-label">Input</label>
+            <div class="inner">
+                <span class="input-content">
+                I need to buy some milk, eggs, bread and fruits from the supermarket this afternoon, and also remember to pick up the package and water the plants at home.
+            </span>
+            </div>
+        </div>
+
+        <div class="create-card task-section">
+            <label class="title-label">Tasks</label>
+            <div class="inner" style="padding-right: 8px">
+
+                <div class="task-item">
+                    <div class="column">
+                        <input type="text" class="task-name-input" value="Buy groceries _">
+                        <select class="time-select">
+                            <option>Morning</option>
+                            <option selected>Afternoon</option>
+                            <option>Evening</option>
+                            <option>Tomorrow Morning</option>
+                        </select>
+                    </div>
+                    <button class="delete-btn">×</button>
+                </div>
+
+                <div class="task-item">
+                    <div class="column">
+                        <input type="text" class="task-name-input" value="Buy groceries _">
+                        <select class="time-select">
+                            <option>Morning</option>
+                            <option selected>Afternoon</option>
+                            <option>Evening</option>
+                            <option>Tomorrow Morning</option>
+                        </select>
+                    </div>
+                    <button class="delete-btn">×</button>
+                </div>
+
+                <div class="task-item">
+                    <div class="column">
+                        <input type="text" class="task-name-input" value="Buy groceries _">
+                        <select class="time-select">
+                            <option>Morning</option>
+                            <option selected>Afternoon</option>
+                            <option>Evening</option>
+                            <option>Tomorrow Morning</option>
+                        </select>
+                    </div>
+                    <button class="delete-btn">×</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="detail-actions">
+    <button class="action-btn action-done">Confirm</button>
+    <button class="action-btn action-delete">Discard</button>
+</footer>
+
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+    })
+    document.getElementById("btn-return").addEventListener("click", () => {
+        //  goto index
+        window.location.href = "index.html";
+    })
+</script>
+</html>

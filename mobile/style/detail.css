@@ -1,0 +1,36 @@
+.detail-content {
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    padding: 24px;
+}
+
+.detail-card {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.detail-row {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.detail-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #666;
+}
+
+.detail-value {
+    font-size: 16px;
+    font-weight: 500;
+    color: #222;
+}

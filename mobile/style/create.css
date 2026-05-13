@@ -1,0 +1,119 @@
+.create-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 24px;
+    gap: 24px;
+}
+
+.create-card {
+    background: #eee;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    border-radius: 18px;
+
+    padding: 12px 18px;
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-section {
+    height: 15%;
+    max-height: 15%;
+}
+
+.inner {
+    display: flex;
+    flex-direction: column;
+
+    overflow-y: auto;   /* ✅ 只在这里滚动 */
+    height: 100%;       /* 必须有高度，否则不会滚动 */
+}
+
+.title-label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+    display: block;
+    flex-shrink: 0;
+}
+
+.input-content {
+    font-size: 18px;
+    color: #555;
+    flex: 1;
+}
+
+.task-section {
+    height: 50%;
+    max-height: 50%;
+}
+
+.task-item {
+    background-color: #ffffff;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    overflow: hidden;
+
+    min-height: 120px;
+}
+
+.task-item .column {
+    flex: 1;
+
+    padding: 12px 14px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.task-name-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #4a6fa5;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 12px;
+    outline: none;
+}
+
+.time-select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #4a6fa5;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333;
+    background-color: #fff;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+}
+
+.delete-btn {
+    width: 10%;
+
+    border: none;
+
+    background: var(--button-color-caution);
+
+    color: white;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    writing-mode: vertical-rl;
+
+    text-orientation: mixed;
+
+    letter-spacing: 2px;
+
+    transition: background 0.2s ease;
+}
