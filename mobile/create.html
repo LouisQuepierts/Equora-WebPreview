@@ -24,56 +24,13 @@
         <div class="create-card input-section">
             <label class="title-label">Input</label>
             <div class="inner">
-                <span class="input-content">
-                I need to buy some milk, eggs, bread and fruits from the supermarket this afternoon, and also remember to pick up the package and water the plants at home.
-            </span>
+                <span class="input-content" id="inputDisplay"></span>
             </div>
         </div>
 
         <div class="create-card task-section">
             <label class="title-label">Tasks</label>
-            <div class="inner" style="padding-right: 8px">
-
-                <div class="task-item">
-                    <div class="column">
-                        <input type="text" class="task-name-input" value="Buy groceries _">
-                        <select class="time-select">
-                            <option>Morning</option>
-                            <option selected>Afternoon</option>
-                            <option>Evening</option>
-                            <option>Tomorrow Morning</option>
-                        </select>
-                    </div>
-                    <button class="delete-btn">×</button>
-                </div>
-
-                <div class="task-item">
-                    <div class="column">
-                        <input type="text" class="task-name-input" value="Buy groceries _">
-                        <select class="time-select">
-                            <option>Morning</option>
-                            <option selected>Afternoon</option>
-                            <option>Evening</option>
-                            <option>Tomorrow Morning</option>
-                        </select>
-                    </div>
-                    <button class="delete-btn">×</button>
-                </div>
-
-                <div class="task-item">
-                    <div class="column">
-                        <input type="text" class="task-name-input" value="Buy groceries _">
-                        <select class="time-select">
-                            <option>Morning</option>
-                            <option selected>Afternoon</option>
-                            <option>Evening</option>
-                            <option>Tomorrow Morning</option>
-                        </select>
-                    </div>
-                    <button class="delete-btn">×</button>
-                </div>
-
-            </div>
+            <div class="inner" id="tasks" style="padding-right: 8px"></div>
         </div>
     </div>
 </div>
@@ -83,14 +40,6 @@
     <button class="action-btn action-delete">Discard</button>
 </footer>
 
+<script src="../scripts/create.js"></script>
 </body>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-
-    })
-    document.getElementById("btn-return").addEventListener("click", () => {
-        //  goto index
-        window.location.href = "index.html";
-    })
-</script>
 </html>
