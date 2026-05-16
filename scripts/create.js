@@ -126,7 +126,7 @@ function createTaskElement(name, timeSlot, clockTime) {
     const timeInput = document.createElement('input');
     timeInput.type = 'text';
     timeInput.className = 'time-input';
-    timeInput.placeholder = 'HH:MM';
+    timeInput.placeholder = 'Anytime';
     timeInput.value = clockTime || '';
 
     timeRow.appendChild(select);

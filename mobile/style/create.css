@@ -3,16 +3,17 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 24px;
+    padding: 24px 24px 180px 24px;
     gap: 24px;
+
+    overflow-y: auto;
+}
+
+.list {
+    padding: 20px 20px 60px 20px;
 }
 
 .create-card {
-    background: #eee;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-    border-radius: 18px;
-
     padding: 12px 18px;
     width: 100%;
     max-width: 400px;
@@ -28,15 +29,12 @@
 .inner {
     display: flex;
     flex-direction: column;
-
-    overflow-y: auto;   /* ✅ 只在这里滚动 */
-    height: 100%;       /* 必须有高度，否则不会滚动 */
 }
 
 .title-label {
     font-size: 18px;
     font-weight: bold;
-    color: #333;
+    color: white;
     margin-bottom: 8px;
     display: block;
     flex-shrink: 0;
@@ -44,7 +42,7 @@
 
 .input-content {
     font-size: 18px;
-    color: #555;
+    color: ghostwhite;
     flex: 1;
 }
 
@@ -54,7 +52,7 @@
 }
 
 .task-item {
-    background-color: #ffffff;
+    background: linear-gradient(125deg, #66e4e8, #ffe3a1);
     border-radius: 12px;
     margin-bottom: 20px;
     display: flex;

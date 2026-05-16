@@ -1,0 +1,43 @@
+
+* {
+  --pending-background: linear-gradient(125deg, #a2d5ff, #7aff95);
+  --delayed-background: linear-gradient(125deg, #ffb3a5, #ffd97a);
+  --done-background: linear-gradient(125deg, #8bffa9, #ffe876);
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(25px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  border-radius: 18px;
+}
+
+.task-status {
+  margin-top: auto;
+
+  align-self: flex-end;
+
+  padding: 6px 14px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.task-status.Pending {
+  background: #a2d5ff;
+  color: white;
+}
+
+.task-status.Delayed {
+  background: #F4B183;
+  color: white;
+}
+
+.task-status.Done {
+  background: #6feca1;
+  color: white;
+}

@@ -13,7 +13,7 @@ function setup() {
 
 function timebox(label, items) {
     const box           = document.createElement("div");
-    box.className       = "timebox";
+    box.classList.add("timebox", "card")
 
     const title         = document.createElement("div");
     title.className     = "timebox-title";
@@ -31,6 +31,7 @@ function timebox(label, items) {
 function task(item) {
     const div           = document.createElement("div");
     div.className       = "task-item";
+    div.classList       .add(item.status);
 
     div.addEventListener("click", () => {
         // goto /detail.html with query params.
@@ -56,8 +57,8 @@ function task(item) {
     content             .appendChild(desc);
 
     const status        = document.createElement("div");
-    status.className    = "task-status";
-    status.classList    .add(item.status);
+    status.className    = "status";
+    // status.classList    .add(item.status);
     status.textContent  = item.status;
     content             .appendChild(status);
 

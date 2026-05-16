@@ -7,6 +7,7 @@
     <title>Equora - Task Manager</title>
     <link rel="stylesheet" href="style/mobile.css"/>
     <link rel="stylesheet" href="style/create.css"/>
+    <link rel="stylesheet" href="./../styles/card.css">
 </head>
 <body>
 
@@ -20,25 +21,25 @@
         <div class="header-spacer"></div>
     </header>
 
-    <div class="create-content">
-        <div class="create-card input-section">
+    <main class="create-content">
+        <div class="create-card card">
             <label class="title-label">Input</label>
             <div class="inner">
                 <span class="input-content" id="inputDisplay"></span>
             </div>
         </div>
 
-        <div class="create-card task-section">
+        <div class="create-card card">
             <label class="title-label">Tasks</label>
             <div class="inner" id="tasks" style="padding-right: 8px"></div>
         </div>
-    </div>
-</div>
+    </main>
 
-<footer class="detail-actions">
-    <button class="action-btn action-done">Confirm</button>
-    <button class="action-btn action-delete">Discard</button>
-</footer>
+    <footer class="detail-actions">
+        <button class="action-btn action-done">Confirm</button>
+        <button class="action-btn action-delete">Discard</button>
+    </footer>
+</div>
 
 <script src="../scripts/create.js"></script>
 </body>

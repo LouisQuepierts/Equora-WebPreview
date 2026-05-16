@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Equora - Task Manager</title>
     <link rel="stylesheet" href="style/mobile.css"/>
-    <link rel="stylesheet" href="style/card.css"/>
+    <link rel="stylesheet" href="../styles/card.css"/>
     <link rel="stylesheet" href="style/detail.css"/>
 </head>
 <body>
@@ -20,7 +20,7 @@
     </header>
 
     <div class="detail-content">
-        <div class="detail-card">
+        <div class="detail-card card">
             <div class="detail-row">
                 <span class="detail-label">Task</span>
                 <span class="detail-value" id="detail-task"></span>
@@ -48,9 +48,7 @@
             <h3 class="popup-title">Delay Task</h3>
             <p class="popup-desc">How long would you like to delay this task?</p>
             <div class="popup-options" id="delay-options">
-                <button class="delay-option" data-delay="30min">30 Minutes</button>
-                <button class="delay-option" data-delay="1hour">1 Hour</button>
-                <button class="delay-option" data-delay="2hours">2 Hours</button>
+                <button class="delay-option" data-delay="later">Later</button>
                 <button class="delay-option" data-delay="tomorrow">Tomorrow</button>
             </div>
             <button class="popup-cancel" id="btn-cancel-delay">Cancel</button>
