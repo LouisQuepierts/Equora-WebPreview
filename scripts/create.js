@@ -12,7 +12,7 @@ const TEMPLATES = {
 
     // Time keywords → slot. Checked in order; first match wins.
     timeSlots: [
-        { keys: ['tomorrow morning', 'tomorrow'], slot: 'Tomorrow Morning' },
+        { keys: ['tomorrow morning', 'tomorrow', "next day"], slot: 'Tomorrow' },
         { keys: ['morning', 'breakfast', 'a.m.', 'am'], slot: 'Morning' },
         { keys: ['afternoon', 'noon', 'lunch', 'p.m.', 'pm'], slot: 'Afternoon' },
         { keys: ['evening', 'tonight', 'dinner', 'night'], slot: 'Evening' },
@@ -25,6 +25,10 @@ const TEMPLATES = {
         /\b(tonight)\b/gi,
         /\b(at|in)\s+the\s+(morning|afternoon|evening|night)\b/gi,
         /,?\s*(this\s+)?(morning|afternoon|evening|tonight)\s*,?/gi,
+        // Clock-time removal patterns
+        /\b(at|by|around|about|before|after|@)\s*\d{1,2}(:\d{2})?\s*(am|pm|a\.m\.|p\.m\.)?\b/gi,
+        /\b\d{1,2}(:\d{2})?\s*(am|pm|a\.m\.|p\.m\.)\b/gi,
+        /\b(noon|midnight)\b/gi,
     ],
 };
 
@@ -42,6 +46,33 @@ function detectTimeSlot(text) {
     return 'Afternoon';
 }
 
+function extractTime(text) {
+    if (/\bnoon\b/i.test(text)) return '12:00 PM';
+    if (/\bmidnight\b/i.test(text)) return '12:00 AM';
+
+    const match = text.match(/(?:at|by|around|about|before|after|@)?\s*(\d{1,2})(?::(\d{2}))?\s*(am|pm|a\.m\.|p\.m\.)?/i);
+    if (!match || !match[1]) return '';
+
+    let hour = parseInt(match[1], 10);
+    const minute = match[2] || '00';
+    let meridiem = (match[3] || '').toLowerCase().replace(/\./g, '');
+
+    if (meridiem === 'a') meridiem = 'am';
+    if (meridiem === 'p') meridiem = 'pm';
+
+    if (meridiem === 'am') {
+        if (hour === 12) hour = 0;
+        return `${hour}:${minute.padStart(2, '0')} AM`;
+    }
+    if (meridiem === 'pm') {
+        return `${hour}:${minute.padStart(2, '0')} PM`;
+    }
+    if (hour > 12) {
+        return `${hour}:${minute.padStart(2, '0')}`;
+    }
+    return `${hour}:${minute.padStart(2, '0')}`;
+}
+
 function parseTasks(input) {
     if (!input || !input.trim()) return [];
 
@@ -55,17 +86,19 @@ function parseTasks(input) {
     return fragments.map(fragment => {
         let name = fragment.trim();
         const timeSlot = detectTimeSlot(name);
+        const clockTime = extractTime(name);
 
         TEMPLATES.timePhrases.forEach(p => { name = name.replace(p, ''); });
 
+        name = name.replace(/\s+(at|by|around|about|before|after|@)\s*$/gi, '');
         name = name.replace(/^[,\s]+|[,\s]+$/g, '').trim();
         name = name.charAt(0).toUpperCase() + name.slice(1);
 
-        return { name, timeSlot };
+        return { name, timeSlot, clockTime };
     }).filter(t => t.name.length > 0);
 }
 
-function createTaskElement(name, timeSlot) {
+function createTaskElement(name, timeSlot, clockTime) {
     const item = document.createElement('div');
     item.className = 'task-item';
 
@@ -77,9 +110,12 @@ function createTaskElement(name, timeSlot) {
     input.className = 'task-name-input';
     input.value = name;
 
+    const timeRow = document.createElement('div');
+    timeRow.className = 'time-row';
+
     const select = document.createElement('select');
     select.className = 'time-select';
-    ['Morning', 'Afternoon', 'Evening', 'Tomorrow Morning'].forEach(opt => {
+    ['Morning', 'Afternoon', 'Evening', 'Tomorrow'].forEach(opt => {
         const option = document.createElement('option');
         option.value = opt;
         option.textContent = opt;
@@ -87,8 +123,17 @@ function createTaskElement(name, timeSlot) {
         select.appendChild(option);
     });
 
+    const timeInput = document.createElement('input');
+    timeInput.type = 'text';
+    timeInput.className = 'time-input';
+    timeInput.placeholder = 'HH:MM';
+    timeInput.value = clockTime || '';
+
+    timeRow.appendChild(select);
+    timeRow.appendChild(timeInput);
+
     column.appendChild(input);
-    column.appendChild(select);
+    column.appendChild(timeRow);
 
     const deleteBtn = document.createElement('button');
     deleteBtn.className = 'delete-btn';
@@ -104,7 +149,7 @@ function renderTasks(tasks) {
     const container = document.getElementById('tasks');
     container.innerHTML = '';
     tasks.forEach(task => {
-        container.appendChild(createTaskElement(task.name, task.timeSlot));
+        container.appendChild(createTaskElement(task.name, task.timeSlot, task.clockTime));
     });
 }
 
@@ -113,6 +158,7 @@ function collectTasks() {
     return Array.from(items).map(item => ({
         name: item.querySelector('.task-name-input').value.trim(),
         timeSlot: item.querySelector('.time-select').value,
+        clockTime: item.querySelector('.time-input').value.trim(),
     })).filter(t => t.name);
 }
 

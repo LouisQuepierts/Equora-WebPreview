@@ -82,8 +82,13 @@
     outline: none;
 }
 
+.time-row {
+    display: flex;
+    gap: 8px;
+}
+
 .time-select {
-    width: 100%;
+    flex: 1;
     padding: 12px;
     border: 1px solid #4a6fa5;
     border-radius: 8px;
@@ -94,6 +99,22 @@
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="%23333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
     background-repeat: no-repeat;
     background-position: right 12px center;
+}
+
+.time-input {
+    width: 90px;
+    padding: 12px 8px;
+    border: 1px solid #4a6fa5;
+    border-radius: 8px;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    text-align: center;
+}
+
+.time-input::placeholder {
+    color: #aaa;
+    font-size: 14px;
 }
 
 .delete-btn {

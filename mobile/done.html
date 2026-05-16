@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equora - Task Done</title>
+    <link rel="stylesheet" href="style/mobile.css"/>
+    <link rel="stylesheet" href="style/done.css"/>
+</head>
+<body>
+
+<div class="app" id="app">
+    <header class="header">
+        <div class="header-spacer"></div>
+        <h1>Task Complete</h1>
+        <div class="header-spacer"></div>
+    </header>
+
+    <main class="done-content">
+        <div class="checkmark-container">
+            <svg class="checkmark-circle" viewBox="0 0 120 120">
+                <circle class="checkmark-bg" cx="60" cy="60" r="54" fill="none" stroke="#4CAF50" stroke-width="6"/>
+                <circle class="checkmark-draw" cx="60" cy="60" r="54" fill="none" stroke="#4CAF50" stroke-width="6"
+                        stroke-linecap="round" stroke-dasharray="340" stroke-dashoffset="340"/>
+                <polyline class="checkmark-check" points="35,60 52,77 85,43"
+                          fill="none" stroke="#4CAF50" stroke-width="6"
+                          stroke-linecap="round" stroke-linejoin="round"
+                          stroke-dasharray="70" stroke-dashoffset="70"/>
+            </svg>
+        </div>
+
+        <p class="done-message">Task marked as done!</p>
+
+        <button class="return-btn" id="btn-return-dashboard">Return to Dashboard</button>
+    </main>
+</div>
+
+</body>
+<script>
+    document.getElementById("btn-return-dashboard").addEventListener("click", () => {
+        window.location.href = "dashboard.html";
+    });
+</script>
+</html>
