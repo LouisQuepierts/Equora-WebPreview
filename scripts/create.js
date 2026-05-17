@@ -1,3 +1,5 @@
+import {CACHE} from "./cache.js";
+
 const TEMPLATES = {
     cleanup: [
         /(?:I|i|we|you)\s+(?:need|have|must|should|got|gotta|gonna|has)\s+to\s+/g,
@@ -31,6 +33,8 @@ const TEMPLATES = {
         /\b(noon|midnight)\b/gi,
     ],
 };
+
+let TASKS = [];
 
 function detectTimeSlot(text) {
     const lower = text.toLowerCase();
@@ -161,6 +165,8 @@ export function collectTasks() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    CACHE.loadConfig();
+
     const inputDisplay = document.getElementById('inputDisplay');
     if (!inputDisplay) return; // Not on create page — skip
 
@@ -171,6 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const tasks = parseTasks(input);
     const container = document.getElementById('tasks');
+    TASKS = tasks;
     renderTasks(container, tasks);
 
     document.getElementById('btn-return').addEventListener('click', () => {
@@ -178,12 +185,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.querySelector('.action-done').addEventListener('click', () => {
-        const tasks = collectTasks();
-        if (tasks.length === 0) return;
 
-        const existing = JSON.parse(localStorage.getItem('equora_tasks') || '[]');
-        localStorage.setItem('equora_tasks', JSON.stringify([...existing, ...tasks]));
-        window.location.href = 'index.html';
+        const tasks = TASKS;
+        if (tasks.length !== 0) {
+            tasks.forEach(task => {
+                const timebox = task.timeSlot;
+
+                CACHE.insert(timebox, {
+                    id: Math.random().toString(36).substring(7),
+                    task: task.name,
+                    status: "Pending",
+                    time: task.clockTime
+                })
+
+            });
+        }
+        CACHE.saveConfig();
+
+        // window.location.href = 'index.html';
     });
 
     document.querySelector('.action-delete').addEventListener('click', () => {

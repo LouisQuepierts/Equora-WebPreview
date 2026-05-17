@@ -1,13 +1,14 @@
-import { TIME_BOXES } from "./default_config.js"
+import { CACHE } from "./cache.js";
 
 document.addEventListener("DOMContentLoaded", () =>
     setup(document.getElementById("list")))
 
 export function setup(list) {
-    TIME_BOXES.forEach(item => {
-        const box   = timebox(item.name, item.tasks);
-        list        .appendChild(box);
-    });
+    const data = CACHE.getConfig();
+    data.forEach(item => {
+        const box = timebox(item.name, item.tasks);
+        list.appendChild(box);
+    })
 }
 
 function timebox(label, items) {

@@ -1,8 +1,9 @@
-import { TIME_BOXES } from "../../scripts/default_config.js"
 import {parseTasks, createTaskElement, collectTasks, renderTasks} from "../../scripts/create.js"
 import {setup} from "../../scripts/cardlist.js";
+import {CACHE} from "../../scripts/cache.js";
 
 let currentTaskInfo = null;
+let TIME_BOXES = CACHE.getConfig();
 
 document.addEventListener("DOMContentLoaded", () => {
     setupFooter();
@@ -13,32 +14,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 window.addEventListener('task-detail', (e) => {
     console.log(e)
-    const taskData = findTask(e.detail.id);
+    const taskData = CACHE.find(e.detail.id)
+    currentTaskInfo = taskData.task;
     openSidePanel(taskData);
 })
 
 window.addEventListener('task-done', (e) => {
-    const taskData = findTask(e.detail.id);
+    const taskData = CACHE.find(e.detail.id);
     console.log(taskData)
     currentTaskInfo = taskData.task;
     currentTaskInfo.status = "Done";
+    CACHE.updateStatus(taskData.task.id, "Done")
+    CACHE.saveConfig();
     openPopup("popup-done");
 })
-
-function findTask(id) {
-    for (let i = 0; i < TIME_BOXES.length; i++) {
-        const item = TIME_BOXES[i];
-        for (let j = 0; j < item.tasks.length; j++) {
-            if (item.tasks[j].id === id) {
-                return {
-                    "task": item.tasks[j],
-                    "time": item.name
-                }
-            }
-        }
-    }
-    return null;
-}
 
 function extractTaskFromCard(cardEl) {
     const desc = cardEl.querySelector(".task-desc");
@@ -73,7 +62,11 @@ function setupSidePanel() {
 
     // Panel action buttons
     document.getElementById("btn-panel-done").addEventListener("click", () => {
-        if (currentTaskInfo) currentTaskInfo.status = "Done";
+        if (currentTaskInfo) {
+            currentTaskInfo.status = "Done";
+            CACHE.updateStatus(currentTaskInfo.id, "Done");
+            CACHE.saveConfig();
+        }
         updatePanelStatusDisplay("Done");
         closeSidePanel();
         openPopup("popup-done");
@@ -140,7 +133,11 @@ function setupPopups() {
     document.getElementById("delay-options").addEventListener("click", (e) => {
         const option = e.target.closest(".delay-option");
         if (!option) return;
-        if (currentTaskInfo) currentTaskInfo.status = "Delayed";
+        if (currentTaskInfo) {
+            currentTaskInfo.status = "Delayed";
+            CACHE.updateStatus(currentTaskInfo.id, "Delayed");
+            CACHE.saveConfig();
+        }
         updatePanelStatusDisplay("Delayed");
         closePopup("popup-delay");
         refreshCardStatus();
@@ -274,15 +271,8 @@ function confirmCreateTasks() {
 //  HELPERS
 // =========================================================================
 function removeTask(id) {
-    for (let i = 0; i < TIME_BOXES.length; i++) {
-        const tasks = TIME_BOXES[i].tasks;
-        for (let j = 0; j < tasks.length; j++) {
-            if (tasks[j].id === id) {
-                tasks.splice(j, 1);
-                return;
-            }
-        }
-    }
+    CACHE.remove(id);
+    CACHE.saveConfig()
 }
 
 function refreshCardList() {

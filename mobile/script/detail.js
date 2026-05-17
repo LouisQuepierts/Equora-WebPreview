@@ -1,12 +1,17 @@
-import { TIME_BOXES } from "../../scripts/default_config.js"
+import {CACHE} from "../../scripts/cache.js";
 
+let TIME_BOXES = CACHE.getConfig();
 document.addEventListener("DOMContentLoaded", () => setup())
+
+let TASK = undefined;
 
 function setup() {
     const taskId = new URLSearchParams(window.location.search).get("task");
 
-    const taskData = findTask(taskId);
+    const taskData = CACHE.find(taskId);
     const taskInfo = taskData.task;
+
+    TASK = taskInfo;
 
     const task = document.getElementById("detail-task");
     const time = document.getElementById("detail-time");
@@ -17,16 +22,17 @@ function setup() {
     status.textContent = taskInfo.status;
     status.classList.add(taskInfo.status);
 
-    setupButtons(taskInfo);
+    setupButtons();
 }
 
-function setupButtons(taskInfo) {
+function setupButtons() {
     const path = window.location.pathname;
     const base = path.substring(0, path.lastIndexOf('/'));
 
     // Mark as Done
     document.getElementById("btn-done").addEventListener("click", () => {
-        taskInfo.status = "Done";
+        CACHE.updateStatus(TASK.id, "Done");
+        CACHE.saveConfig();
         window.location.href = base + "/done.html";
     });
 
@@ -41,10 +47,15 @@ function setupButtons(taskInfo) {
     document.getElementById("delay-options").addEventListener("click", (e) => {
         const option = e.target.closest(".delay-option");
         if (!option) return;
-        taskInfo.status = "Delayed";
+
+        CACHE.updateStatus(TASK.id, "Delayed");
+        CACHE.saveConfig();
+
         popupDelay.classList.remove("active");
         document.getElementById("detail-status").textContent = "Delayed";
         document.getElementById("detail-status").className = "task-status Delayed";
+
+        window.location.href = base + "/index.html";
     });
     popupDelay.addEventListener("click", (e) => {
         if (e.target === popupDelay) popupDelay.classList.remove("active");
@@ -59,28 +70,20 @@ function setupButtons(taskInfo) {
         popupDelete.classList.remove("active");
     });
     document.getElementById("btn-confirm-delete").addEventListener("click", () => {
-        removeTask(taskInfo.id);
-        window.location.href = base + "/dashboard.html";
+        CACHE.remove(TASK.id);
+        CACHE.saveConfig();
+        window.location.href = base + "/index.html";
     });
     popupDelete.addEventListener("click", (e) => {
         if (e.target === popupDelete) popupDelete.classList.remove("active");
     });
+
+    if (TASK.status === "Done") {
+        document.getElementById("btn-done").style.display = "none";
+        document.getElementById("btn-delay").style.display = "none";
+    }
 }
 
-function findTask(id) {
-    for (let i = 0; i < TIME_BOXES.length; i++) {
-        const item = TIME_BOXES[i];
-        for (let j = 0; j < item.tasks.length; j++) {
-            if (item.tasks[j].id === id) {
-                return {
-                    "task": item.tasks[j],
-                    "time": item.name
-                }
-            }
-        }
-    }
-    return null;
-}
 
 function removeTask(id) {
     for (let i = 0; i < TIME_BOXES.length; i++) {

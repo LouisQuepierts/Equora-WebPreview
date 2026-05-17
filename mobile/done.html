@@ -31,9 +31,15 @@
 </div>
 
 </body>
-<script>
+<script type="module">
+    import {CACHE} from "../scripts/cache.js";
+
     document.getElementById("btn-return-dashboard").addEventListener("click", () => {
-        window.location.href = "dashboard.html";
+        CACHE.loadConfig();
+        const taskId = new URLSearchParams(window.location.search).get("task");
+        CACHE.updateStatus(taskId, "Done");
+        CACHE.saveConfig();
+        window.location.href = "index.html";
     });
 </script>
 </html>

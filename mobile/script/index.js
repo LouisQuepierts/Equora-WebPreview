@@ -138,6 +138,8 @@ submitBtn.addEventListener('click', () => {
 
 holdSpeakBtn.addEventListener('touchmove', cancelPress);
 
+
+console.log("init")
 window.addEventListener('task-detail', (e) => {
     console.log(e)
     window.location.href = "detail.html?task=" + e.detail.id;
