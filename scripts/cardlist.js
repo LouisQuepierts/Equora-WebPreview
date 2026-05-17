@@ -1,10 +1,9 @@
 import { TIME_BOXES } from "./default_config.js"
 
-document.addEventListener("DOMContentLoaded", () => setup())
+document.addEventListener("DOMContentLoaded", () =>
+    setup(document.getElementById("list")))
 
-function setup() {
-    const list      = document.getElementById("list");
-
+export function setup(list) {
     TIME_BOXES.forEach(item => {
         const box   = timebox(item.name, item.tasks);
         list        .appendChild(box);
@@ -33,18 +32,12 @@ function task(item) {
     div.className       = "task-item";
     div.classList       .add(item.status);
 
-    div.addEventListener("click", () => {
-        // goto /detail.html with query params.
-        console.log(window.location.pathname);
-        const path = window.location.pathname;
-        // suppose path = /Equora/mobile/index.html
-        // then jump to /Equora/mobile/detail.html
-        const url = path.substring(0, path.lastIndexOf('/')) + "/detail.html?task=" + item.id;
-        window.location.href = url;
-    });
-
     const content       = document.createElement("div");
     content.className   = "task-content";
+    content.addEventListener("click", () => {
+        console.log(item)
+        window.dispatchEvent(new CustomEvent("task-detail", { detail: item }))
+    });
 
     const title         = document.createElement("span");
     title.className     = "task-title";
@@ -61,12 +54,19 @@ function task(item) {
     // status.classList    .add(item.status);
     status.textContent  = item.status;
     content             .appendChild(status);
-
-    const done          = document.createElement("button");
-    done.className      = "done-btn";
-    done.textContent    = "Done";
-    
     div                 .appendChild(content);
-    div                 .appendChild(done);
+
+    if (item.status !== "Done") {
+        const done = document.createElement("button");
+        done.className = "done-btn";
+        done.textContent = "Done";
+
+        done.addEventListener("click", (e) => {
+            console.log(item)
+            window.dispatchEvent(new CustomEvent("task-done", {detail: item}))
+        })
+
+        div.appendChild(done);
+    }
     return              div;
 }

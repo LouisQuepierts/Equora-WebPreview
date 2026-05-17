@@ -73,7 +73,7 @@ function extractTime(text) {
     return `${hour}:${minute.padStart(2, '0')}`;
 }
 
-function parseTasks(input) {
+export function parseTasks(input) {
     if (!input || !input.trim()) return [];
 
     let text = input;
@@ -98,9 +98,9 @@ function parseTasks(input) {
     }).filter(t => t.name.length > 0);
 }
 
-function createTaskElement(name, timeSlot, clockTime) {
+export function createTaskElement(name, timeSlot, clockTime) {
     const item = document.createElement('div');
-    item.className = 'task-item';
+    item.className = 'create-task-item';
 
     const column = document.createElement('div');
     column.className = 'column';
@@ -145,15 +145,13 @@ function createTaskElement(name, timeSlot, clockTime) {
     return item;
 }
 
-function renderTasks(tasks) {
-    const container = document.getElementById('tasks');
-    container.innerHTML = '';
+export function renderTasks(container, tasks) {
     tasks.forEach(task => {
         container.appendChild(createTaskElement(task.name, task.timeSlot, task.clockTime));
     });
 }
 
-function collectTasks() {
+export function collectTasks() {
     const items = document.querySelectorAll('#tasks .task-item');
     return Array.from(items).map(item => ({
         name: item.querySelector('.task-name-input').value.trim(),
@@ -163,13 +161,17 @@ function collectTasks() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    const inputDisplay = document.getElementById('inputDisplay');
+    if (!inputDisplay) return; // Not on create page — skip
+
     const params = new URLSearchParams(window.location.search);
     const input = params.get('input') || '';
 
-    document.getElementById('inputDisplay').textContent = input;
+    inputDisplay.textContent = input;
 
     const tasks = parseTasks(input);
-    renderTasks(tasks);
+    const container = document.getElementById('tasks');
+    renderTasks(container, tasks);
 
     document.getElementById('btn-return').addEventListener('click', () => {
         window.location.href = 'index.html';

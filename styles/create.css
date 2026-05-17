@@ -51,7 +51,7 @@
     max-height: 50%;
 }
 
-.task-item {
+.create-task-item {
     background: linear-gradient(125deg, #66e4e8, #ffe3a1);
     border-radius: 12px;
     margin-bottom: 20px;
@@ -61,7 +61,7 @@
     min-height: 120px;
 }
 
-.task-item .column {
+.create-task-item .column {
     flex: 1;
 
     padding: 12px 14px;

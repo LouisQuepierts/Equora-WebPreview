@@ -30,7 +30,7 @@
   height: 70px;
   min-height: 70px;
   max-height: 70px;
-  background: rgba(185, 220, 255, 0.9);
+  background: rgb(185 209 234 / 0.8);
   backdrop-filter: blur(10px);
 
   overflow: hidden;
@@ -408,7 +408,7 @@
 
   border: none;
 
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05));
+  background: linear-gradient(120deg, #d97aff, #40b3ff);
 
   color: white;
 

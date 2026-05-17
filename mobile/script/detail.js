@@ -1,4 +1,4 @@
-import { TIME_BOXES } from "./default_config.js"
+import { TIME_BOXES } from "../../scripts/default_config.js"
 
 document.addEventListener("DOMContentLoaded", () => setup())
 
