@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         CACHE.saveConfig();
 
-        // window.location.href = 'index.html';
+        window.location.href = 'index.html';
     });
 
     document.querySelector('.action-delete').addEventListener('click', () => {
