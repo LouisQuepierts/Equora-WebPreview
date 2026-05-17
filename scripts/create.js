@@ -34,7 +34,7 @@ const TEMPLATES = {
     ],
 };
 
-let TASKS = [];
+export let TASKS = [];
 
 function detectTimeSlot(text) {
     const lower = text.toLowerCase();

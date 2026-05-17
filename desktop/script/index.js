@@ -4,6 +4,7 @@ import {CACHE} from "../../scripts/cache.js";
 
 let currentTaskInfo = null;
 let TIME_BOXES = CACHE.getConfig();
+let TASKS = [];
 
 document.addEventListener("DOMContentLoaded", () => {
     setupFooter();
@@ -218,6 +219,7 @@ function setupSubmit() {
         if (!input) return;
 
         const tasks = parseTasks(input);
+        TASKS = tasks;
         document.getElementById("create-input-display").textContent = input;
 
         const container = document.getElementById("create-tasks-container");
@@ -229,37 +231,24 @@ function setupSubmit() {
 }
 
 function confirmCreateTasks() {
-    const tasks = collectTasks();
+    const tasks = TASKS;
+    console.log(tasks)
     if (tasks.length === 0) return;
 
     // Find max existing ID and assign new ones
     let maxId = 0;
-    TIME_BOXES.forEach(box => {
-        box.tasks.forEach(t => {
-            const id = parseInt(t.id, 10);
-            if (id > maxId) maxId = id;
-        });
-    });
 
     tasks.forEach((t, i) => {
-        const id = String(maxId + i + 1);
-        const slot = t.timeSlot || "Afternoon";
-        const entry = { id, task: t.name, status: "Pending" };
-        if (t.clockTime) entry.time = t.clockTime;
-
-        const box = TIME_BOXES.find(b => b.name === slot);
-        if (box) {
-            box.tasks.push(entry);
-        } else {
-            // Try Tomorrow slot
-            const tomorrowBox = TIME_BOXES.find(b => b.name === "Tomorrow");
-            if (tomorrowBox) {
-                tomorrowBox.tasks.push(entry);
-            } else {
-                TIME_BOXES[TIME_BOXES.length - 1].tasks.push(entry);
-            }
-        }
+        console.log(t, i);
+        CACHE.insert(t.timeSlot, {
+            id: Math.random().toString(36).substring(7),
+            task: t.name,
+            status: "Pending",
+            time: t.clockTime
+        })
     });
+
+    CACHE.saveConfig();
 
     closePopup("popup-create");
     document.getElementById("taskInput").value = "";
